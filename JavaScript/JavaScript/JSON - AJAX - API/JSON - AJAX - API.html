@@ -1,0 +1,356 @@
+<!DOCTYPE html><html><head>
+      <title>JSON - AJAX - API</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      
+      <link rel="stylesheet" href="file:///c:\Users\A\.vscode\extensions\shd101wyy.markdown-preview-enhanced-0.7.9\crossnote\dependencies\katex\katex.min.css">
+      
+      
+      
+      
+      
+      <style>
+      code[class*=language-],pre[class*=language-]{color:#333;background:0 0;font-family:Consolas,"Liberation Mono",Menlo,Courier,monospace;text-align:left;white-space:pre;word-spacing:normal;word-break:normal;word-wrap:normal;line-height:1.4;-moz-tab-size:8;-o-tab-size:8;tab-size:8;-webkit-hyphens:none;-moz-hyphens:none;-ms-hyphens:none;hyphens:none}pre[class*=language-]{padding:.8em;overflow:auto;border-radius:3px;background:#f5f5f5}:not(pre)>code[class*=language-]{padding:.1em;border-radius:.3em;white-space:normal;background:#f5f5f5}.token.blockquote,.token.comment{color:#969896}.token.cdata{color:#183691}.token.doctype,.token.macro.property,.token.punctuation,.token.variable{color:#333}.token.builtin,.token.important,.token.keyword,.token.operator,.token.rule{color:#a71d5d}.token.attr-value,.token.regex,.token.string,.token.url{color:#183691}.token.atrule,.token.boolean,.token.code,.token.command,.token.constant,.token.entity,.token.number,.token.property,.token.symbol{color:#0086b3}.token.prolog,.token.selector,.token.tag{color:#63a35c}.token.attr-name,.token.class,.token.class-name,.token.function,.token.id,.token.namespace,.token.pseudo-class,.token.pseudo-element,.token.url-reference .token.variable{color:#795da3}.token.entity{cursor:help}.token.title,.token.title .token.punctuation{font-weight:700;color:#1d3e81}.token.list{color:#ed6a43}.token.inserted{background-color:#eaffea;color:#55a532}.token.deleted{background-color:#ffecec;color:#bd2c00}.token.bold{font-weight:700}.token.italic{font-style:italic}.language-json .token.property{color:#183691}.language-markup .token.tag .token.punctuation{color:#333}.language-css .token.function,code.language-css{color:#0086b3}.language-yaml .token.atrule{color:#63a35c}code.language-yaml{color:#183691}.language-ruby .token.function{color:#333}.language-markdown .token.url{color:#795da3}.language-makefile .token.symbol{color:#795da3}.language-makefile .token.variable{color:#183691}.language-makefile .token.builtin{color:#0086b3}.language-bash .token.keyword{color:#0086b3}pre[data-line]{position:relative;padding:1em 0 1em 3em}pre[data-line] .line-highlight-wrapper{position:absolute;top:0;left:0;background-color:transparent;display:block;width:100%}pre[data-line] .line-highlight{position:absolute;left:0;right:0;padding:inherit 0;margin-top:1em;background:hsla(24,20%,50%,.08);background:linear-gradient(to right,hsla(24,20%,50%,.1) 70%,hsla(24,20%,50%,0));pointer-events:none;line-height:inherit;white-space:pre}pre[data-line] .line-highlight:before,pre[data-line] .line-highlight[data-end]:after{content:attr(data-start);position:absolute;top:.4em;left:.6em;min-width:1em;padding:0 .5em;background-color:hsla(24,20%,50%,.4);color:#f4f1ef;font:bold 65%/1.5 sans-serif;text-align:center;vertical-align:.3em;border-radius:999px;text-shadow:none;box-shadow:0 1px #fff}pre[data-line] .line-highlight[data-end]:after{content:attr(data-end);top:auto;bottom:.4em}html body{font-family:"Helvetica Neue",Helvetica,"Segoe UI",Arial,freesans,sans-serif;font-size:16px;line-height:1.6;color:#333;background-color:#fff;overflow:initial;box-sizing:border-box;word-wrap:break-word}html body>:first-child{margin-top:0}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{line-height:1.2;margin-top:1em;margin-bottom:16px;color:#000}html body h1{font-size:2.25em;font-weight:300;padding-bottom:.3em}html body h2{font-size:1.75em;font-weight:400;padding-bottom:.3em}html body h3{font-size:1.5em;font-weight:500}html body h4{font-size:1.25em;font-weight:600}html body h5{font-size:1.1em;font-weight:600}html body h6{font-size:1em;font-weight:600}html body h1,html body h2,html body h3,html body h4,html body h5{font-weight:600}html body h5{font-size:1em}html body h6{color:#5c5c5c}html body strong{color:#000}html body del{color:#5c5c5c}html body a:not([href]){color:inherit;text-decoration:none}html body a{color:#08c;text-decoration:none}html body a:hover{color:#00a3f5;text-decoration:none}html body img{max-width:100%}html body>p{margin-top:0;margin-bottom:16px;word-wrap:break-word}html body>ol,html body>ul{margin-bottom:16px}html body ol,html body ul{padding-left:2em}html body ol.no-list,html body ul.no-list{padding:0;list-style-type:none}html body ol ol,html body ol ul,html body ul ol,html body ul ul{margin-top:0;margin-bottom:0}html body li{margin-bottom:0}html body li.task-list-item{list-style:none}html body li>p{margin-top:0;margin-bottom:0}html body .task-list-item-checkbox{margin:0 .2em .25em -1.8em;vertical-align:middle}html body .task-list-item-checkbox:hover{cursor:pointer}html body blockquote{margin:16px 0;font-size:inherit;padding:0 15px;color:#5c5c5c;background-color:#f0f0f0;border-left:4px solid #d6d6d6}html body blockquote>:first-child{margin-top:0}html body blockquote>:last-child{margin-bottom:0}html body hr{height:4px;margin:32px 0;background-color:#d6d6d6;border:0 none}html body table{margin:10px 0 15px 0;border-collapse:collapse;border-spacing:0;display:block;width:100%;overflow:auto;word-break:normal;word-break:keep-all}html body table th{font-weight:700;color:#000}html body table td,html body table th{border:1px solid #d6d6d6;padding:6px 13px}html body dl{padding:0}html body dl dt{padding:0;margin-top:16px;font-size:1em;font-style:italic;font-weight:700}html body dl dd{padding:0 16px;margin-bottom:16px}html body code{font-family:Menlo,Monaco,Consolas,'Courier New',monospace;font-size:.85em!important;color:#000;background-color:#f0f0f0;border-radius:3px;padding:.2em 0}html body code::after,html body code::before{letter-spacing:-.2em;content:"\00a0"}html body pre>code{padding:0;margin:0;font-size:.85em!important;word-break:normal;white-space:pre;background:0 0;border:0}html body .highlight{margin-bottom:16px}html body .highlight pre,html body pre{padding:1em;overflow:auto;font-size:.85em!important;line-height:1.45;border:#d6d6d6;border-radius:3px}html body .highlight pre{margin-bottom:0;word-break:normal}html body pre code,html body pre tt{display:inline;max-width:initial;padding:0;margin:0;overflow:initial;line-height:inherit;word-wrap:normal;background-color:transparent;border:0}html body pre code:after,html body pre code:before,html body pre tt:after,html body pre tt:before{content:normal}html body blockquote,html body dl,html body ol,html body p,html body pre,html body ul{margin-top:0;margin-bottom:16px}html body kbd{color:#000;border:1px solid #d6d6d6;border-bottom:2px solid #c7c7c7;padding:2px 4px;background-color:#f0f0f0;border-radius:3px}@media print{html body{background-color:#fff}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{color:#000;page-break-after:avoid}html body blockquote{color:#5c5c5c}html body pre{page-break-inside:avoid}html body table{display:table}html body img{display:block;max-width:100%;max-height:100%}html body code,html body pre{word-wrap:break-word;white-space:pre}}.markdown-preview{width:100%;height:100%;box-sizing:border-box}.markdown-preview .newpage,.markdown-preview .pagebreak{page-break-before:always}.markdown-preview pre.line-numbers{position:relative;padding-left:3.8em;counter-reset:linenumber}.markdown-preview pre.line-numbers>code{position:relative}.markdown-preview pre.line-numbers .line-numbers-rows{position:absolute;pointer-events:none;top:1em;font-size:100%;left:0;width:3em;letter-spacing:-1px;border-right:1px solid #999;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.markdown-preview pre.line-numbers .line-numbers-rows>span{pointer-events:none;display:block;counter-increment:linenumber}.markdown-preview pre.line-numbers .line-numbers-rows>span:before{content:counter(linenumber);color:#999;display:block;padding-right:.8em;text-align:right}.markdown-preview .mathjax-exps .MathJax_Display{text-align:center!important}.markdown-preview:not([data-for=preview]) .code-chunk .btn-group{display:none}.markdown-preview:not([data-for=preview]) .code-chunk .status{display:none}.markdown-preview:not([data-for=preview]) .code-chunk .output-div{margin-bottom:16px}.markdown-preview .md-toc{padding:0}.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link{display:inline;padding:.25rem 0}.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link div,.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link p{display:inline}.markdown-preview .md-toc .md-toc-link-wrapper.highlighted .md-toc-link{font-weight:800}.scrollbar-style::-webkit-scrollbar{width:8px}.scrollbar-style::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}.scrollbar-style::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,.66);border:4px solid rgba(150,150,150,.66);background-clip:content-box}html body[for=html-export]:not([data-presentation-mode]){position:relative;width:100%;height:100%;top:0;left:0;margin:0;padding:0;overflow:auto}html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{position:relative;top:0;min-height:100vh}@media screen and (min-width:914px){html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{padding:2em calc(50% - 457px + 2em)}}@media screen and (max-width:914px){html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{font-size:14px!important;padding:1em}}@media print{html body[for=html-export]:not([data-presentation-mode]) #sidebar-toc-btn{display:none}}html body[for=html-export]:not([data-presentation-mode]) #sidebar-toc-btn{position:fixed;bottom:8px;left:8px;font-size:28px;cursor:pointer;color:inherit;z-index:99;width:32px;text-align:center;opacity:.4}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] #sidebar-toc-btn{opacity:1}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc{position:fixed;top:0;left:0;width:300px;height:100%;padding:32px 0 48px 0;font-size:14px;box-shadow:0 0 4px rgba(150,150,150,.33);box-sizing:border-box;overflow:auto;background-color:inherit}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar{width:8px}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,.66);border:4px solid rgba(150,150,150,.66);background-clip:content-box}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc a{text-decoration:none}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc{padding:0 16px}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link{display:inline;padding:.25rem 0}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link div,html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link p{display:inline}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper.highlighted .md-toc-link{font-weight:800}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{left:300px;width:calc(100% - 300px);padding:2em calc(50% - 457px - 300px/2);margin:0;box-sizing:border-box}@media screen and (max-width:1274px){html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{width:100%}}html body[for=html-export]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .markdown-preview{left:50%;transform:translateX(-50%)}html body[for=html-export]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .md-sidebar-toc{display:none}
+/* Please visit the URL below for more information: */
+/*   https://shd101wyy.github.io/markdown-preview-enhanced/#/customize-css */
+
+      </style>
+      
+    </head>
+    <body for="html-export">
+      <div class="crossnote markdown-preview  ">
+      <h1 class="crossnote-header" id="json---api---ajax">JSON - API - AJAX</h1>
+
+<h1 class="crossnote-header" id="span-stylebackground-colorfce4ec-color-000-border-radius-5px-padding-4pxjsonspan"><span style="background-color:#fce4ec; color: #000; border-radius: 5px; padding: 4px">JSON</span></h1>
+
+<h5 class="crossnote-header" id="what-is-json">What is JSON?</h5>
+
+<ul>
+<li>JavaScript Object Notation</li>
+<li>Format for sharing data between server and client</li>
+<li>JSON is derived from JavaScript</li>
+<li>Alternative to XML</li>
+<li>File extension is <code>file.json</code></li>
+</ul>
+<h5 class="crossnote-header" id="why-json">Why JSON?</h5>
+
+<ul>
+<li>Easy to use and read</li>
+<li>Used by most programming languages and its framework</li>
+<li>You can convert JSON object to JS object and vice versa</li>
+</ul>
+<p><mark>JSON vs XMl</mark></p>
+<ul>
+<li>Text based format - Markup language</li>
+<li>Lightweight - heavier</li>
+<li>Dose not use tagss - using tags</li>
+<li>Shorter - Not shorter</li>
+<li>Can use arrays - cannot use arrays</li>
+<li>Not support comments - Supports commnets</li>
+</ul>
+<h4 class="crossnote-header" id="json-syntax">JSON Syntax</h4>
+
+<ul>
+<li>Data must be written inside {...}</li>
+<li>It's an object consists of key and value</li>
+<li>Keys must be doublequoted</li>
+<li>Use comma <code>,</code> to separate between each key and value</li>
+<li>Don't write trailing commas</li>
+<li>Available data to share is
+<ul>
+<li>string</li>
+<li>number</li>
+<li>boolean</li>
+<li>array</li>
+<li>object</li>
+<li>null</li>
+</ul>
+</li>
+</ul>
+<pre data-role="codeBlock" data-info="JSON" class="language-json JSON"><span class="token punctuation">{</span>
+  <span class="token property">"string"</span> <span class="token operator">:</span> <span class="token string">"Abdulazim"</span><span class="token punctuation">,</span>
+  <span class="token property">"number"</span> <span class="token operator">:</span> <span class="token number">20</span><span class="token punctuation">,</span>
+  <span class="token property">"object"</span> <span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">"Problem solver"</span> <span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+    <span class="token property">"Front-end developer"</span><span class="token operator">:</span> <span class="token boolean">true</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token property">"myArr"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">,</span><span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+  <span class="token property">"null"</span> <span class="token operator">:</span> <span class="token null keyword">null</span>
+<span class="token punctuation">}</span>
+</pre><hr>
+<h1 class="crossnote-header" id="span-stylebackground-colorfce4ec-color-000-border-radius-5px-padding-4pxapispan"><span style="background-color:#fce4ec; color: #000; border-radius: 5px; padding: 4px">API</span></h1>
+
+<p>API stands for "Application prtogramming interface"<br>
+<code>api.hithub.com/users/abdulazimRabie</code></p>
+<pre data-role="codeBlock" data-info="JSON" class="language-json JSON"><span class="token punctuation">{</span>
+  <span class="token property">"login"</span><span class="token operator">:</span> <span class="token string">"abdulazimRabie"</span><span class="token punctuation">,</span>
+  <span class="token property">"id"</span><span class="token operator">:</span> <span class="token number">114117038</span><span class="token punctuation">,</span>
+  <span class="token property">"node_id"</span><span class="token operator">:</span> <span class="token string">"U_kgDOBs1Jrg"</span><span class="token punctuation">,</span>
+  <span class="token property">"avatar_url"</span><span class="token operator">:</span> <span class="token string">"https://avatars.githubusercontent.com/u/114117038?v=4"</span><span class="token punctuation">,</span>
+  <span class="token property">"gravatar_id"</span><span class="token operator">:</span> <span class="token string">""</span><span class="token punctuation">,</span>
+  <span class="token property">"url"</span><span class="token operator">:</span> <span class="token string">"https://api.github.com/users/abdulazimRabie"</span><span class="token punctuation">,</span>
+  <span class="token property">"html_url"</span><span class="token operator">:</span> <span class="token string">"https://github.com/abdulazimRabie"</span><span class="token punctuation">,</span>
+  <span class="token property">"followers_url"</span><span class="token operator">:</span> <span class="token string">"https://api.github.com/users/abdulazimRabie/followers"</span><span class="token punctuation">,</span>
+  <span class="token property">"following_url"</span><span class="token operator">:</span> <span class="token string">"https://api.github.com/users/abdulazimRabie/following{/other_user}"</span><span class="token punctuation">,</span>
+  <span class="token property">"gists_url"</span><span class="token operator">:</span> <span class="token string">"https://api.github.com/users/abdulazimRabie/gists{/gist_id}"</span><span class="token punctuation">,</span>
+  <span class="token property">"starred_url"</span><span class="token operator">:</span> <span class="token string">"https://api.github.com/users/abdulazimRabie/starred{/owner}{/repo}"</span><span class="token punctuation">,</span>
+  <span class="token property">"subscriptions_url"</span><span class="token operator">:</span> <span class="token string">"https://api.github.com/users/abdulazimRabie/subscriptions"</span><span class="token punctuation">,</span>
+  <span class="token property">"organizations_url"</span><span class="token operator">:</span> <span class="token string">"https://api.github.com/users/abdulazimRabie/orgs"</span><span class="token punctuation">,</span>
+  <span class="token property">"repos_url"</span><span class="token operator">:</span> <span class="token string">"https://api.github.com/users/abdulazimRabie/repos"</span><span class="token punctuation">,</span>
+  <span class="token property">"events_url"</span><span class="token operator">:</span> <span class="token string">"https://api.github.com/users/abdulazimRabie/events{/privacy}"</span><span class="token punctuation">,</span>
+  <span class="token property">"received_events_url"</span><span class="token operator">:</span> <span class="token string">"https://api.github.com/users/abdulazimRabie/received_events"</span><span class="token punctuation">,</span>
+  <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"User"</span><span class="token punctuation">,</span>
+  <span class="token property">"site_admin"</span><span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+  <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"Abdulazim Rabie"</span><span class="token punctuation">,</span>
+  <span class="token property">"company"</span><span class="token operator">:</span> <span class="token null keyword">null</span><span class="token punctuation">,</span>
+  <span class="token property">"blog"</span><span class="token operator">:</span> <span class="token string">""</span><span class="token punctuation">,</span>
+  <span class="token property">"location"</span><span class="token operator">:</span> <span class="token string">"Egypt"</span><span class="token punctuation">,</span>
+  <span class="token property">"email"</span><span class="token operator">:</span> <span class="token null keyword">null</span><span class="token punctuation">,</span>
+  <span class="token property">"hireable"</span><span class="token operator">:</span> <span class="token null keyword">null</span><span class="token punctuation">,</span>
+  <span class="token property">"bio"</span><span class="token operator">:</span> <span class="token string">"CS Student "</span><span class="token punctuation">,</span>
+  <span class="token property">"twitter_username"</span><span class="token operator">:</span> <span class="token null keyword">null</span><span class="token punctuation">,</span>
+  <span class="token property">"public_repos"</span><span class="token operator">:</span> <span class="token number">3</span><span class="token punctuation">,</span>
+  <span class="token property">"public_gists"</span><span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+  <span class="token property">"followers"</span><span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+  <span class="token property">"following"</span><span class="token operator">:</span> <span class="token number">2</span><span class="token punctuation">,</span>
+  <span class="token property">"created_at"</span><span class="token operator">:</span> <span class="token string">"2022-09-21T23:21:13Z"</span><span class="token punctuation">,</span>
+  <span class="token property">"updated_at"</span><span class="token operator">:</span> <span class="token string">"2023-07-23T05:24:32Z"</span>
+<span class="token punctuation">}</span>
+</pre><p>Api consist of JSON file which contains information the user can use and know.</p>
+<p>You can manipulate with this JSON file and extract what you need.</p>
+<p>So, to manipulate with json file , there are tow method you should know.</p>
+<ul>
+<li><code>JSON.parse(string)</code> : convert data text to JS object</li>
+<li><code>JSON.stringfy(obj)</code> : convert the object to JSON string</li>
+</ul>
+<pre data-role="codeBlock" data-info="JS" class="language-javascript JS"><span class="token keyword keyword-const">const</span> myJsonFileFromServer <span class="token operator">=</span> <span class="token string">'{"username":"abdu", "age": 20}'</span><span class="token punctuation">;</span>
+<span class="token console class-name">console</span><span class="token punctuation">.</span><span class="token method function property-access">log</span><span class="token punctuation">(</span><span class="token keyword keyword-typeof">typeof</span> myJsonFileFromServer<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// string</span>
+<span class="token console class-name">console</span><span class="token punctuation">.</span><span class="token method function property-access">log</span><span class="token punctuation">(</span>myJsonFileFromServer<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// {"username":"abdu", "age": 20}</span>
+
+<span class="token keyword keyword-const">const</span> obj <span class="token operator">=</span> <span class="token known-class-name class-name">JSON</span><span class="token punctuation">.</span><span class="token method function property-access">parse</span><span class="token punctuation">(</span>myJsonFileFromServer<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token console class-name">console</span><span class="token punctuation">.</span><span class="token method function property-access">log</span><span class="token punctuation">(</span><span class="token keyword keyword-typeof">typeof</span> obj<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// Object</span>
+<span class="token console class-name">console</span><span class="token punctuation">.</span><span class="token method function property-access">log</span><span class="token punctuation">(</span>obj<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// {username: 'abdu', age: 20}</span>
+
+obj<span class="token punctuation">[</span><span class="token string">"username"</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token string">"Yahia"</span><span class="token punctuation">;</span>
+obj<span class="token punctuation">[</span><span class="token string">"age"</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token number">13</span><span class="token punctuation">;</span>
+
+<span class="token console class-name">console</span><span class="token punctuation">.</span><span class="token method function property-access">log</span><span class="token punctuation">(</span>obj<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// username":Yahia, age:13</span>
+
+<span class="token keyword keyword-const">const</span> myJsonFileToServer <span class="token operator">=</span> <span class="token known-class-name class-name">JSON</span><span class="token punctuation">.</span><span class="token method function property-access">stringify</span><span class="token punctuation">(</span>obj<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token console class-name">console</span><span class="token punctuation">.</span><span class="token method function property-access">log</span><span class="token punctuation">(</span><span class="token keyword keyword-typeof">typeof</span> myJsonFileToServer<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// string</span>
+<span class="token console class-name">console</span><span class="token punctuation">.</span><span class="token method function property-access">log</span><span class="token punctuation">(</span>myJsonFileToServer<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// {"username":"Yahia","age":13}</span>
+</pre><h1 class="crossnote-header" id="span-stylebackground-colorfce4ec-color-000-border-radius-5px-padding-4pxsynchronous--asynchronousspan"><span style="background-color:#fce4ec; color: #000; border-radius: 5px; padding: 4px">Synchronous &amp; Asynchronous</span></h1>
+
+<h3 class="crossnote-header" id="synchronous">Synchronous</h3>
+
+<ul>
+<li>Operations run in sequence</li>
+<li>Each operation must wait for the previous one to complete</li>
+</ul>
+<pre data-role="codeBlock" data-info="JS" class="language-javascript JS"><span class="token console class-name">console</span><span class="token punctuation">.</span><span class="token method function property-access">log</span><span class="token punctuation">(</span><span class="token string">"1"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token console class-name">console</span><span class="token punctuation">.</span><span class="token method function property-access">log</span><span class="token punctuation">(</span><span class="token string">"2"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">alert</span><span class="token punctuation">(</span><span class="token string">"plpla"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token console class-name">console</span><span class="token punctuation">.</span><span class="token method function property-access">log</span><span class="token punctuation">(</span><span class="token string">"3"</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// it won't execute untill the alert is done</span>
+</pre><h3 class="crossnote-header" id="asynchronous">Asynchronous</h3>
+
+<ul>
+<li>Operations run in parallel</li>
+<li>This means that the operation can occur while another one is still being processed</li>
+</ul>
+<pre data-role="codeBlock" data-info="JS" class="language-javascript JS"><span class="token console class-name">console</span><span class="token punctuation">.</span><span class="token method function property-access">log</span><span class="token punctuation">(</span><span class="token string">"1"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token console class-name">console</span><span class="token punctuation">.</span><span class="token method function property-access">log</span><span class="token punctuation">(</span><span class="token string">"2"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">setTimeout</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token arrow operator">=&gt;</span> <span class="token console class-name">console</span><span class="token punctuation">.</span><span class="token method function property-access">log</span><span class="token punctuation">(</span><span class="token string">"iam asynchronous"</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token number">3000</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token console class-name">console</span><span class="token punctuation">.</span><span class="token method function property-access">log</span><span class="token punctuation">(</span><span class="token string">"3"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</pre><h1 class="crossnote-header" id="span-stylebackground-colorfce4ec-color-000-border-radius-5px-padding-4pxcallstack--web-apispan"><span style="background-color:#fce4ec; color: #000; border-radius: 5px; padding: 4px">Callstack &amp; Web API</span></h1>
+
+<h3 class="crossnote-header" id="web-api">Web API</h3>
+
+<ul>
+<li>Methods available from the environment =&gt; browser</li>
+</ul>
+<h3 class="crossnote-header" id="call-stack--stack-trace">Call Stack &amp; Stack Trace</h3>
+
+<ul>
+<li>JavaScript engine uses a call stack to manage execution contexts</li>
+<li>Mechanism to make the interpreter track your calls</li>
+<li>When the function is called, it is added to the stack</li>
+<li>when the function is executed, it is removed from the stack</li>
+<li>After the function is finsished, the interpreter continue from the last point</li>
+<li>Work using LIFO principle (Last In First Out)</li>
+<li>Code Execution is synchronous</li>
+</ul>
+<pre data-role="codeBlock" data-info="Js" class="language-javascript Js"><span class="token keyword keyword-function">function</span> <span class="token function">one</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token console class-name">console</span><span class="token punctuation">.</span><span class="token method function property-access">log</span><span class="token punctuation">(</span><span class="token string">"one"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword keyword-function">function</span> <span class="token function">two</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token function">one</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token console class-name">console</span><span class="token punctuation">.</span><span class="token method function property-access">log</span><span class="token punctuation">(</span><span class="token string">"two"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword keyword-function">function</span> <span class="token function">three</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token function">two</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token console class-name">console</span><span class="token punctuation">.</span><span class="token method function property-access">log</span><span class="token punctuation">(</span><span class="token string">"three"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token function">three</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">// one</span>
+<span class="token comment">// two</span>
+<span class="token comment">// three</span>
+</pre><p>if there is a web api method, it will be excuted in the last.</p>
+<pre data-role="codeBlock" data-info="JS" class="language-javascript JS"><span class="token function">setTimeout</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token arrow operator">=&gt;</span> <span class="token punctuation">{</span>
+  <span class="token console class-name">console</span><span class="token punctuation">.</span><span class="token method function property-access">log</span><span class="token punctuation">(</span><span class="token string">"web api method"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span>
+
+<span class="token keyword keyword-function">function</span> <span class="token function">one</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token console class-name">console</span><span class="token punctuation">.</span><span class="token method function property-access">log</span><span class="token punctuation">(</span><span class="token string">"one"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword keyword-function">function</span> <span class="token function">two</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token function">one</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token console class-name">console</span><span class="token punctuation">.</span><span class="token method function property-access">log</span><span class="token punctuation">(</span><span class="token string">"two"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token keyword keyword-function">function</span> <span class="token function">three</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token function">two</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token console class-name">console</span><span class="token punctuation">.</span><span class="token method function property-access">log</span><span class="token punctuation">(</span><span class="token string">"three"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+
+<span class="token function">three</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">// one</span>
+<span class="token comment">// two</span>
+<span class="token comment">// three</span>
+<span class="token comment">// web api method</span>
+</pre><h1 class="crossnote-header" id="span-stylebackground-colorfce4ec-color-000-border-radius-5px-padding-4pxcallback-queue--event-loopspan"><span style="background-color:#fce4ec; color: #000; border-radius: 5px; padding: 4px">Callback Queue &amp; Event Loop</span></h1>
+
+<p><span style="background-color:#fce4ec; color: #000; border-radius: 5px; padding: 4px">1</span> The callback queue, also known as the task queue, is a data structure in JavaScript that holds asynchronous callbacks waiting to be executed.</p>
+<p><span style="background-color:#fce4ec; color: #000; border-radius: 5px; padding: 4px">2</span> Whenever an asynchronous operation, such as a setTimeout or a network request, is completed, its corresponding callback function is added to the callback queue.</p>
+<p><span style="background-color:#fce4ec; color: #000; border-radius: 5px; padding: 4px">3</span> The event loop is responsible for continuously checking the callback queue and executing the callbacks in a specific order.</p>
+<p><span style="background-color:#fce4ec; color: #000; border-radius: 5px; padding: 4px">4</span> The event loop follows a single-threaded, non-blocking model of execution, allowing JavaScript to handle multiple asynchronous operations efficiently.</p>
+<p><span style="background-color:#fce4ec; color: #000; border-radius: 5px; padding: 4px">5</span> During each iteration of the event loop, it checks if the call stack is empty. If it is, it retrieves the next callback from the callback queue and pushes it onto the call stack for execution.</p>
+<p><span style="background-color:#fce4ec; color: #000; border-radius: 5px; padding: 4px">6</span> The event loop ensures that the callbacks are executed in the order they were added to the callback queue, thus maintaining the correct sequence of operations.</p>
+<p><span style="background-color:#fce4ec; color: #000; border-radius: 5px; padding: 4px">7</span> The event loop also handles other phases, such as timers, I/O events, and process.nextTick, along with the callback queue.</p>
+<p><span style="background-color:#fce4ec; color: #000; border-radius: 5px; padding: 4px">8</span> Web APIs, like setTimeout, XMLHttpRequest, or fetch, are responsible for executing asynchronous operations outside the JavaScript runtime environment and adding the corresponding callbacks to the callback queue.</p>
+<pre data-role="codeBlock" data-info="JS" class="language-javascript JS"><span class="token console class-name">console</span><span class="token punctuation">.</span><span class="token method function property-access">log</span><span class="token punctuation">(</span><span class="token string">"hi"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token function">setTimeout</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token arrow operator">=&gt;</span> <span class="token punctuation">{</span>
+  <span class="token console class-name">console</span><span class="token punctuation">.</span><span class="token method function property-access">log</span><span class="token punctuation">(</span><span class="token string">"one"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token number">20</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token function">setTimeout</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token arrow operator">=&gt;</span> <span class="token punctuation">{</span>
+  <span class="token console class-name">console</span><span class="token punctuation">.</span><span class="token method function property-access">log</span><span class="token punctuation">(</span><span class="token string">"two"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token console class-name">console</span><span class="token punctuation">.</span><span class="token method function property-access">log</span><span class="token punctuation">(</span><span class="token string">"bye"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">/*
+  hi
+  bye
+  two
+  one
+*/</span>
+</pre><pre data-role="codeBlock" data-info="JS" class="language-javascript JS"><span class="token console class-name">console</span><span class="token punctuation">.</span><span class="token method function property-access">log</span><span class="token punctuation">(</span>num<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token keyword keyword-let">let</span> num <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+num <span class="token operator">+=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+<span class="token comment">/*
+  Error: Cannot access 'num' before declaration
+*/</span>
+</pre><pre data-role="codeBlock" data-info="JS" class="language-javascript JS"><span class="token function">setTimeout</span><span class="token punctuation">(</span><span class="token keyword keyword-function">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token console class-name">console</span><span class="token punctuation">.</span><span class="token method function property-access">log</span><span class="token punctuation">(</span>num<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">,</span> <span class="token number">0</span><span class="token punctuation">)</span>
+<span class="token keyword keyword-let">let</span> num <span class="token operator">=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+num <span class="token operator">+=</span> <span class="token number">1</span><span class="token punctuation">;</span>
+<span class="token comment">/*
+  2
+*/</span>
+</pre><blockquote>
+<p>Web APIs includes synchronous and a synchronous function</p>
+<ul>
+<li>setTimeout is an asynchronous function</li>
+<li>console is synchronous function</li>
+</ul>
+<p>So asynchronous function goes to web api stack and goes callback queue in order then event loop decides which function will be executed after asure the the callback stack is empty</p>
+</blockquote>
+<h1 class="crossnote-header" id="span-stylebackground-colorfce4ec-color-000-border-radius-5px-padding-4pxajaxspan"><span style="background-color:#fce4ec; color: #000; border-radius: 5px; padding: 4px">AJAX</span></h1>
+
+<ul>
+<li>Stands for ( Asynchronous JavaScript And XML )</li>
+<li>It's an approach to use many technologies together [HTML - CSS - JS - DOM]</li>
+<li>It uses "XMLHttpRequest" object to interact with the server</li>
+<li>You can fetch data and send it without page refresh</li>
+<li>Examples
+<ul>
+<li>Youtube Studio</li>
+<li>Google Drive</li>
+<li>Upload Article Photo</li>
+<li>Form Check Name</li>
+</ul>
+</li>
+</ul>
+<pre data-role="codeBlock" data-info="Js" class="language-javascript Js"><span class="token keyword keyword-let">let</span> req <span class="token operator">=</span> <span class="token keyword keyword-new">new</span> <span class="token class-name">XMLHttpRequest</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token console class-name">console</span><span class="token punctuation">.</span><span class="token method function property-access">log</span><span class="token punctuation">(</span>req<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</pre><p>Each request has status code, the value of status code explains if the respons is succesful or not</p>
+<h3 class="crossnote-header" id="requst-and-response-from-real-api">Requst and response from real API</h3>
+
+<h5 class="crossnote-header" id="ready-state---status-of-the-request">Ready State - Status of the request</h5>
+
+<p><span style="background-color:#fce4ec; color: #000; border-radius: 5px; padding: 4px">[0]</span> Request not intialized</p>
+<p><span style="background-color:#fce4ec; color: #000; border-radius: 5px; padding: 4px">[1]</span> Server connection established</p>
+<p><span style="background-color:#fce4ec; color: #000; border-radius: 5px; padding: 4px">[2]</span> Request recieved</p>
+<p><span style="background-color:#fce4ec; color: #000; border-radius: 5px; padding: 4px">[3]</span> Processing request</p>
+<p><span style="background-color:#fce4ec; color: #000; border-radius: 5px; padding: 4px">[4]</span> Request is finsished and response is ready</p>
+<h5 class="crossnote-header" id="status">Status</h5>
+
+<p><span style="background-color:#fce4ec; color: #000; border-radius: 5px; padding: 4px">[200]</span> Response is successful</p>
+<p><span style="background-color:#fce4ec; color: #000; border-radius: 5px; padding: 4px">[404]</span> Not found</p>
+<pre data-role="codeBlock" data-info="Js" class="language-javascript Js"><span class="token keyword keyword-let">let</span> req <span class="token operator">=</span> <span class="token keyword keyword-new">new</span> <span class="token class-name">XMLHttpRequest</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+req<span class="token punctuation">.</span><span class="token method function property-access">open</span><span class="token punctuation">(</span><span class="token string">"GET"</span><span class="token punctuation">,</span> <span class="token string">"https://api.github.com/users/abdulazimrabie/repos"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+req<span class="token punctuation">.</span><span class="token method function property-access">send</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token comment">// it intialize the request</span>
+<span class="token console class-name">console</span><span class="token punctuation">.</span><span class="token method function property-access">log</span><span class="token punctuation">(</span>req<span class="token punctuation">)</span><span class="token punctuation">;</span>
+</pre><pre data-role="codeBlock" data-info="Js" class="language-javascript Js">req<span class="token punctuation">.</span><span class="token method-variable function-variable method function property-access">onreadystatechange</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token arrow operator">=&gt;</span> <span class="token punctuation">{</span>
+  <span class="token console class-name">console</span><span class="token punctuation">.</span><span class="token method function property-access">log</span><span class="token punctuation">(</span>req<span class="token punctuation">.</span><span class="token property-access">readyState</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token console class-name">console</span><span class="token punctuation">.</span><span class="token method function property-access">log</span><span class="token punctuation">(</span>req<span class="token punctuation">.</span><span class="token property-access">status</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  <span class="token console class-name">console</span><span class="token punctuation">.</span><span class="token method function property-access">log</span><span class="token punctuation">(</span><span class="token string">"#####"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token comment">/*
+  2 =&gt; request is recieved 
+  200
+  #####
+  3 =&gt; request is proccessing
+  200
+  #####
+  4 =&gt; request is finished and response is ready
+  200
+  #####
+*/</span>
+</pre><pre data-role="codeBlock" data-info="JS" class="language-javascript JS">req<span class="token punctuation">.</span><span class="token method-variable function-variable method function property-access">onreadystatechange</span> <span class="token operator">=</span> <span class="token keyword keyword-function">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword control-flow keyword-if">if</span> <span class="token punctuation">(</span>req<span class="token punctuation">.</span><span class="token property-access">status</span> <span class="token operator">===</span> <span class="token number">200</span> <span class="token operator">&amp;&amp;</span> req<span class="token punctuation">.</span><span class="token property-access">readyState</span> <span class="token operator">===</span> <span class="token number">4</span><span class="token punctuation">)</span>
+    <span class="token console class-name">console</span><span class="token punctuation">.</span><span class="token method function property-access">log</span><span class="token punctuation">(</span><span class="token keyword keyword-this">this</span><span class="token punctuation">.</span><span class="token property-access">responseText</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token comment">// That will return respone object as a text to deal with it and manipulate with data</span>
+</pre><p>Loop on Data from real API</p>
+<pre data-role="codeBlock" data-info="Js" class="language-javascript Js"><span class="token keyword keyword-let">let</span> req <span class="token operator">=</span> <span class="token keyword keyword-new">new</span> <span class="token class-name">XMLHttpRequest</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+req<span class="token punctuation">.</span><span class="token method function property-access">open</span><span class="token punctuation">(</span><span class="token string">"GET"</span><span class="token punctuation">,</span> <span class="token string">"https://api.github.com/users/abdulazimrabie/repos"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+req<span class="token punctuation">.</span><span class="token method function property-access">send</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+req<span class="token punctuation">.</span><span class="token method-variable function-variable method function property-access">onreadystatechange</span> <span class="token operator">=</span> <span class="token keyword keyword-function">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+  <span class="token keyword control-flow keyword-if">if</span> <span class="token punctuation">(</span>req<span class="token punctuation">.</span><span class="token property-access">status</span> <span class="token operator">===</span> <span class="token number">200</span> <span class="token operator">&amp;&amp;</span> req<span class="token punctuation">.</span><span class="token property-access">readyState</span> <span class="token operator">===</span> <span class="token number">4</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token keyword keyword-let">let</span> obj <span class="token operator">=</span> <span class="token known-class-name class-name">JSON</span><span class="token punctuation">.</span><span class="token method function property-access">parse</span><span class="token punctuation">(</span>req<span class="token punctuation">.</span><span class="token property-access">responseText</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token console class-name">console</span><span class="token punctuation">.</span><span class="token method function property-access">log</span><span class="token punctuation">(</span>obj<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword control-flow keyword-for">for</span><span class="token punctuation">(</span><span class="token keyword keyword-let">let</span> item <span class="token keyword keyword-of">of</span> obj<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+      <span class="token console class-name">console</span><span class="token punctuation">.</span><span class="token method function property-access">log</span><span class="token punctuation">(</span>item<span class="token punctuation">[</span><span class="token string">"full_name"</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</pre>
+      </div>
+      
+      
+    
+    
+    
+    
+    
+    
+  
+    </body></html>

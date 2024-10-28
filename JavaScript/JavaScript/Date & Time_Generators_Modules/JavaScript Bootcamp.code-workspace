@@ -1,0 +1,19 @@
+{
+  "folders": [
+	{
+		"path": "C:/Users/A/Documents/JavaScript Bootcamp"
+	},
+	{
+		"path": "C:/Users/A/Documents/portfolio/Customer Support"
+	},
+	{
+		"path": "../../Front-end Projects/Kasper"
+	},
+	{
+		"path": "../../Front-end Projects/TODO App"
+	}
+],
+  "settings": {
+    "liveServer.settings.multiRootWorkspaceName": "JavaScript Bootcamp"
+  }
+}
