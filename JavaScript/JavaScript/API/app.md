@@ -1,3 +1,4 @@
+```JS
 
 function getPosts() {
   let req = new XMLHttpRequest();
@@ -112,3 +113,5 @@ function getSpecificPosts() {
 // deletePost();
 getSpecificPosts();
 
+
+```
