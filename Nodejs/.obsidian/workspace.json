@@ -22,12 +22,12 @@
             }
           },
           {
-            "id": "2b70efa5f8011819",
+            "id": "47b7bd7bf6dac455",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Nodejs/Section 3 - Backend Overview/Notes.md",
+                "file": "Nodejs/Section 5 - Async-Await  - Promises/Notes.md",
                 "mode": "source",
                 "source": false
               },
@@ -177,9 +177,11 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "2b70efa5f8011819",
+  "active": "e84e867a938b9575",
   "lastOpenFiles": [
     "Nodejs/Section 4 - Nodejs Behinde The Scenes/Notes.md",
+    "Nodejs/Section 5 - Async-Await  - Promises/Notes.md",
+    "Nodejs/Section 5 - Async-Await  - Promises",
     "Nodejs/Section 3 - Backend Overview/Notes.md",
     "README.md",
     "Nodejs/Section 4 - Nodejs Behinde The Scenes/assets/node_process_threads.jpg",
@@ -205,7 +207,6 @@
     "Nodejs/Section 2 - Nodejs & NPM",
     "Nodejs/Section 3 - Nodejs Behinde The Scenes",
     "Nodejs/Section 1",
-    "Nodejs/Section 2",
     "Nodejs - Session 1.md"
   ]
 }
