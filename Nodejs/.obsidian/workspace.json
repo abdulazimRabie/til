@@ -8,12 +8,12 @@
         "type": "tabs",
         "children": [
           {
-            "id": "624683fd643a3e22",
+            "id": "90a11940a505bbc4",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Nodejs/Section 4 - Nodejs Behinde The Scenes/Notes.md",
+                "file": "Nodejs/Section 6 - Express/Notes.md",
                 "mode": "source",
                 "source": false
               },
@@ -22,12 +22,12 @@
             }
           },
           {
-            "id": "47b7bd7bf6dac455",
+            "id": "6735b68e398ac484",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Nodejs/Section 5 - Async-Await  - Promises/Notes.md",
+                "file": "Nodejs/Section 6 - Express/Notes.md",
                 "mode": "source",
                 "source": false
               },
@@ -92,7 +92,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 332.5
+    "width": 200
   },
   "right": {
     "id": "85f329731addce16",
@@ -177,10 +177,16 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "e84e867a938b9575",
+  "active": "6735b68e398ac484",
   "lastOpenFiles": [
-    "Nodejs/Section 4 - Nodejs Behinde The Scenes/Notes.md",
+    "Nodejs/Section 6 - Express/assets/request_response_cycle.png",
+    "Nodejs/Section 6 - Express/assets/Screenshot from 2024-11-12 08-27-48.png",
+    "Nodejs/Section 6 - Express/assets",
+    "Nodejs/Section 2 - Nodejs & NPM/Introduction to Nodejs and NPM.md",
+    "Nodejs/Section 6 - Express/Notes.md",
     "Nodejs/Section 5 - Async-Await  - Promises/Notes.md",
+    "Nodejs/Section 4 - Nodejs Behinde The Scenes/Notes.md",
+    "Nodejs/Section 6 - Express",
     "Nodejs/Section 5 - Async-Await  - Promises",
     "Nodejs/Section 3 - Backend Overview/Notes.md",
     "README.md",
@@ -193,7 +199,6 @@
     "Nodejs/Section 4 - Nodejs Behinde The Scenes/assets/5_event_driven_architecture.png",
     "Nodejs/Section 4 - Nodejs Behinde The Scenes/assets/4_event_loop_details.png",
     "Nodejs/Section 4 - Nodejs Behinde The Scenes/assets/3_node_event_loop.png",
-    "Nodejs/Section 4 - Nodejs Behinde The Scenes/assets/2_node_process_threads.png",
     "Nodejs/Section 4 - Nodejs Behinde The Scenes/assets",
     "Nodejs/Section 4 - Nodejs Behinde The Scenes",
     "Nodejs/Section 3 - Backend Overview/assets",
@@ -201,12 +206,9 @@
     "Nodejs/Section 3 - Nodejs Behinde The Scenes/Notes.md",
     "assets/module_.md",
     "assets",
-    "Nodejs/Section 2 - Nodejs & NPM/Introduction to Nodejs and NPM.md",
     "Nodejs/Section 2/Introduction to Nodejs and NPM.md",
     "Nodejs/Section 3 - Nodejs Behinde The Scenes/assets",
     "Nodejs/Section 2 - Nodejs & NPM",
-    "Nodejs/Section 3 - Nodejs Behinde The Scenes",
-    "Nodejs/Section 1",
     "Nodejs - Session 1.md"
   ]
 }
