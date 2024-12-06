@@ -4,16 +4,16 @@
     "type": "split",
     "children": [
       {
-        "id": "dd921e6fa54f7a47",
+        "id": "18a1ed5e97a897a1",
         "type": "tabs",
         "children": [
           {
-            "id": "feeec85c69377229",
+            "id": "62283a86adc9f3ec",
             "type": "leaf",
             "state": {
               "type": "markdown",
               "state": {
-                "file": "Nodejs/Section 7 - MongoDB/Notes.md",
+                "file": "Nodejs/Section 8 - Mongoose/Notes.md",
                 "mode": "source",
                 "source": false
               },
@@ -77,7 +77,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 288.50152587890625
+    "width": 348.50152587890625
   },
   "right": {
     "id": "85f329731addce16",
@@ -162,10 +162,17 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "feeec85c69377229",
+  "active": "62283a86adc9f3ec",
   "lastOpenFiles": [
-    "Nodejs/Section 6 - Express/Notes.md",
     "Nodejs/Section 7 - MongoDB/Notes.md",
+    "Nodejs/Section 8 - Mongoose/Notes.md",
+    "Nodejs/Section 8 - Mongoose/assets/application_business_logic.png",
+    "Nodejs/Section 8 - Mongoose/assets/Screenshot from 2024-11-29 04-06-33.png",
+    "Nodejs/Section 8 - Mongoose/assets/mvc.png",
+    "Nodejs/Section 8 - Mongoose/assets/Screenshot from 2024-11-29 04-01-14.png",
+    "Nodejs/Section 8 - Mongoose/assets",
+    "Nodejs/Section 8 - Mongoose",
+    "Nodejs/Section 6 - Express/Notes.md",
     "Nodejs/Section 7 - MongoDB/assets/Documents_BSON_Embedding.png",
     "Nodejs/Section 7 - MongoDB/assets/Screenshot from 2024-11-27 16-15-25.png",
     "Nodejs/Section 7 - MongoDB/assets",
@@ -182,17 +189,11 @@
     "README.md",
     "Nodejs/Section 4 - Nodejs Behinde The Scenes/assets/node_process_threads.jpg",
     "Nodejs/Section 4 - Nodejs Behinde The Scenes/assets/node_arch.jpg",
-    "Nodejs/Section 4 - Nodejs Behinde The Scenes/assets/event_loop.jpg",
-    "Nodejs/Section 4 - Nodejs Behinde The Scenes/assets/8_module_returning_exports.png",
-    "Nodejs/Section 4 - Nodejs Behinde The Scenes/assets/7_module_wrapping.png",
-    "Nodejs/Section 4 - Nodejs Behinde The Scenes/assets/6_module_resolving.png",
     "Nodejs/Section 4 - Nodejs Behinde The Scenes/assets",
     "Nodejs/Section 4 - Nodejs Behinde The Scenes",
     "Nodejs/Section 3 - Backend Overview/assets",
-    "Nodejs/Section 3 - Backend Overview",
     "Nodejs/Section 3 - Nodejs Behinde The Scenes/Notes.md",
     "assets/module_.md",
-    "assets",
     "Nodejs/Section 2/Introduction to Nodejs and NPM.md",
     "Nodejs - Session 1.md"
   ]
