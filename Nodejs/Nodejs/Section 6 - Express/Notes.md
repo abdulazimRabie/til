@@ -473,7 +473,7 @@ module.exports = router;
 
 ## Chain middlwares
 - to user more than middleware, separate between them with commas
-- `app.user("/api", middleware1, middleware2, middleware3)`
+- `app.use("/api", middleware1, middleware2, middleware3)`
 - `app.psot("/api/tour", validateBody, createTour)`
 
 What if we want to implement more than one middleware to specific function. Let's say that we want to check that the input data coming from user to create new tour contains `price` and `name` properties.

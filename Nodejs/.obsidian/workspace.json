@@ -77,7 +77,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 348.50152587890625
+    "width": 336.5
   },
   "right": {
     "id": "85f329731addce16",
@@ -164,15 +164,15 @@
   },
   "active": "62283a86adc9f3ec",
   "lastOpenFiles": [
-    "Nodejs/Section 7 - MongoDB/Notes.md",
+    "Nodejs/Section 6 - Express/Notes.md",
     "Nodejs/Section 8 - Mongoose/Notes.md",
+    "Nodejs/Section 7 - MongoDB/Notes.md",
     "Nodejs/Section 8 - Mongoose/assets/application_business_logic.png",
     "Nodejs/Section 8 - Mongoose/assets/Screenshot from 2024-11-29 04-06-33.png",
     "Nodejs/Section 8 - Mongoose/assets/mvc.png",
     "Nodejs/Section 8 - Mongoose/assets/Screenshot from 2024-11-29 04-01-14.png",
     "Nodejs/Section 8 - Mongoose/assets",
     "Nodejs/Section 8 - Mongoose",
-    "Nodejs/Section 6 - Express/Notes.md",
     "Nodejs/Section 7 - MongoDB/assets/Documents_BSON_Embedding.png",
     "Nodejs/Section 7 - MongoDB/assets/Screenshot from 2024-11-27 16-15-25.png",
     "Nodejs/Section 7 - MongoDB/assets",

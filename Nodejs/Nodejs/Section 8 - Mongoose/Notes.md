@@ -367,7 +367,10 @@ let's use `findByIdAndUpdate` , it is more powerful
 exports.updateTour = async (req, res) => {
 
     try {
-        const updatedTour = await Tour.findByIdAndUpdate({"_id": req.params.id}, {$set : req.body}, {new: true, runValidators: true});
+        const updatedTour = await Tour.findByIdAndUpdate(
+        {"_id": req.params.id}, 
+        {$set : req.body}, 
+        {new: true, runValidators: true});
 
         res.status(202).json({
             status: "success",
@@ -690,7 +693,7 @@ query.sort("price");
 ```js
 query.sort("-price");
 ```
-- To sort base on two properties, separate between them with space. e.g. "price duration"
+- To sort based on two properties, separate between them with a space. e.g. "price duration"
 ```js
 query.sort("price duration")
 ```
@@ -699,6 +702,7 @@ But how to write query parameters in the URL.
 ```
 127.0.0.1:3000/api/v1/tours?sort=price,duration
 ```
+
 So we need to convert the `,` into space to pass these properties names to the query.
 
 ```js
@@ -724,4 +728,800 @@ if (req.query.sort) {
 }
 
 const tours = await Tour.find(query);
+```
+
+## Making API better : limiting fields
+- Projection = limiting fields. You can do that by using `query.select()`
+
+- shows only name and price
+```js
+query.select("name price");
+```
+
+- exclude name and price from the response
+```js
+query.select("-name -price")
+```
+
+- another way to do projecting
+```js
+query.select({name: 1, price: 1, "_id": 0})
+```
+
+```js
+query.find({}, {name: 1, "_id":0});
+```
+
+- URL
+```
+127.0.0.1/api/tours?fields=name,price,-difficulty
+```
+
+```js
+if (req.query.fields) {
+	// {fields : "name,price,duration"}
+	// "name price duration"
+	// {name:  1, price: 1, duration: 1}
+	let limitingFields = req.query.fields.split(",").join(" ");
+	query.select(limitingFields)
+} else {
+	query.select("-__v"); // execlude this property by default
+}
+```
+
+- Exclude from the schema
+```js
+createdAt : {
+	type: Date,
+	default: Date.now(),
+	select: false
+}
+```
+
+## Making API better : pagination 
+- Use `skip()` to skip number of documents
+- Use `limit()` to limit returned documents
+- Use `countDocuments()` to get number of documents
+- URL
+```
+12.0.0.1:300/api/v1/tours?page=1&limit=2
+```
+
+```js
+// PAGINATION
+	try {
+		const page = req.query.page * 1 || 1;
+	    const limit = req.query.limit * 1 || 1;
+	    const skip = (page-1) * limit;
+	    
+	    // do pagination all time - weather use asked or not 
+		query = query.skip(skip).limit(limit); 
+		
+	    if (req.query.page) {
+		    const toursNum = await Tour.countDcouments();
+		    if (skip >= toursNum) throw new Error("Reached the maximum page");
+	    }
+	} catch (error) {
+		// handle response with failure message
+	}
+```
+
+## Making API better : aliasing
+- If you want to make a custom URL to return the top cheapest tours. you will make an alias.
+normal URL would be like this
+```
+127.0.0.1:300/api/tours?sort=price&page=1&limit=5
+```
+But we want an alias for that
+```
+127.0.0.1:300/api/tours/top-5-cheap
+```
+
+- Middleware comes to solve this problem
+- create a middleware that add properties to the `req.query`
+- call the handler function 
+
+`middleware/tours.js`
+```js
+export.topFiveTours = (req, res, next) => {
+    req.query = {
+        ...req.query,
+        sort: "-maxGroupSize,-price",
+        limit: "5"
+    }
+    console.log("Middleware to alias top 5 tours");
+    next();
+}
+```
+
+```js
+router.get("/api/top-5-cheap", middlewares.topFiveTours, controllers.getAllTours);
+```
+
+## Refactor API features
+- create a class to wrap all functions used to handle features of API such as `filter` , `sort`, `pagination`, `fieldslimit`
+- The constructor has two parameters `Model` such as Tour and the query object such as `req.query`
+- Each methods should return the object to enable method chaining
+
+`utils/apiFeatures.js`
+```js
+class QueryHandler {
+    constructor(model, queryObj) {
+        this.model = model;
+        this.queryObj = queryObj;
+        this.query = null;
+    }
+
+    filter() {
+        const excludedFields = ["page", "sort", "limit", "fields"];
+        let queryObj = {...this.queryObj};
+    
+        excludedFields.forEach(field => delete queryObj[field]);
+    
+        console.log(queryObj);
+        // Convert Query Operators
+        queryObj = JSON.stringify(queryObj);
+        queryObj = queryObj.replace(/\b(gte|gt|lte|lt)\b/g, matched => `$${matched}`);
+    
+        queryObj = JSON.parse(queryObj);
+
+        this.query = this.model.find(queryObj);
+        return this;
+    }
+
+    sort() {
+        if (this.queryObj.sort) {
+            let sortingParams = this.queryObj.sort.split(",").join(" ");
+            console.log(sortingParams);
+    
+            this.query = this.query.sort(sortingParams);
+        } else {
+            this.query = this.query.sort("-createdAt");
+        }
+
+        return this;
+    }
+
+    fieldsLimt() {
+        if (this.queryObj.fields) {
+            // {fields : "name,price,duration"}
+            // {name:  1, price: 1, duration: 1}
+            // let limitingFields = {};
+            // this.queryObj.fields.split(",").forEach(field => limitingFields[field] = 1);
+            let limitingFields = this.queryObj.fields.split(",").join(" ");
+            this.query = this.query.select(limitingFields);
+        }
+
+        return this;
+    }
+
+    pagination() {
+        const page = this.queryObj.page * 1 || 1;
+        const limit = this.queryObj.limit * 1 || 1;
+        const skip = (page-1) * limit;
+        
+        // in genral, return chunk of data even the user didn't ask.
+        this.query = this.query.skip(skip).limit(limit);
+    
+        if (this.queryObj.page) {
+            // const toursNumber = await this.model.countDocuments();
+            // if (toursNumber >= skip) throw new Error("No tours to return")
+        }
+        
+        return this;
+    }
+}
+
+module.exports = QueryHandler;
+```
+
+`contollers/tours.js`
+```js
+const QueryHandler = require("../utils/apiFeatures");
+
+exports.getAllTours = async (req, res) => {
+    try {
+        // Execute a query
+        const apiHandlerFeatures = new QueryHandler(Tour, req.query).filter().sort().fieldsLimt().pagination();
+        const tours_db = await apiHandlerFeatures.query;
+
+        res
+        .status(200)
+        .send({
+            status: "success",
+            results: tours_db.length,
+            requestedAt: req.requestTime,
+            data : {
+                tours: tours_db
+            }
+        });
+    } catch (error) {
+        res.status(400).json({
+            status: "fail",
+            message: error.message
+        })
+    }
+
+};
+```
+
+## Aggregation pipeline : matching and grouping
+### **Aggregation in MongoDB**
+
+Aggregation in MongoDB is a powerful framework for processing and transforming data stored in collections. It allows you to perform complex operations like filtering, grouping, sorting, calculating, and reshaping data in a highly efficient manner.
+<br>
+The aggregation framework processes data using a **pipeline**, where multiple stages are applied sequentially. Each stage transforms the data and passes the output to the next stage.
+- `$match`
+```js
+Tour.aggregate([
+	{$match : "$price"}
+])
+```
+
+```js
+Tour.aggregate([
+	{$match : ratingAverage : {$gte : 4}}
+])
+```
+
+- `$group` : to group returned document based on a property like "difficulty", "duration"
+	- use `_id` to determine which property is used to group
+	- `_id: null` don't group any documents
+	- `_id: "$difficulty"` : group documents based on difficulty property
+
+```js
+Tour.aggregate([
+	{$match: ratingAverage : {$gte: 4} },
+	{$group : {
+		// _id: null
+		_id: "$difficulty"
+	}}
+])
+```
+
+ - Reshaping documents
+```js
+Tour.aggregate([
+	{$match: ratingAverage : {$gte: 4}},
+	{$group: {
+		_id: "$difficulty",
+		numOfRatings: {$sum : "$ratingQuantity"},
+		avgRating: {$avg : "$ratingAverage"},
+		avgPrice: {$avg : "$price"},
+		minPrice: {$min : "$price"},
+		maxPrice: {$max : "$price"}
+	}}
+])
+```
+
+while the grouping process happens (or after. i don't know). it makes some operation on the documents in the group such as finding the average rating, count of documents, sum of rating quantity, min price between this group, max price and so on ...
+
+- `$sort : {"$property coming from previous pipeline" : 1/-1}` :   
+	- `1` : ascending
+	- `-1` : descending
+```js
+Tout.aggregate([
+	{$match : ratingAverage : {$gte: 4}},
+	{$group: {
+		_id: "difficulty",
+		count: {$sum : 1},
+		avgRating: {$avg: "$ratingAverage"},
+		avgPrice: {$avg: "$price"},
+		minPrice: {$min: "$price"},
+		maxPrice: {$max: "$price"},
+	}},
+	{$sort: {avgPrice: 1}} // sort 
+])
+```
+
+- Replicate the operations
+	- absolutely you can do `$match` again
+
+```js
+Tout.aggregate([
+	{$match : ratingAverage : {$gte: 4}},
+	{$group: {
+		_id: {$toUpper : "difficulty"},
+		count: {$sum : 1},
+		avgRating: {$avg: "$ratingAverage"},
+		avgPrice: {$avg: "$price"},
+		minPrice: {$min: "$price"},
+		maxPrice: {$max: "$price"},
+	}},
+	{$sort: {avgPrice: 1}}, // sort
+	{$match: _id : {$ne : "EASY"}}
+])
+```
+
+==**e.g.**==
+```js
+exports.toursStats = async (req, res) => {
+    try {
+        const stats = await Tour.aggregate([
+            {$match : {ratingAverage : {$gte: 4}}},
+            {$group: {
+                _id: {$toUpper : "$difficulty"},
+                num: {$sum : 1},
+                numOfRatings: {$sum : "$ratingQuantity"},
+                avgRating: {$avg : "$ratingAverage"},
+                avgPrice: {$avg : "$price"},
+                minPrice: {$min : "$price"},
+                maxPrice: {$max : "$price"}
+            }},
+            {$sort : {avgPrice: 1}}
+        ]);
+
+        res.status(202).json({
+            status: "success",
+            results: stats.length,
+            data : {
+                stats
+            }
+        })
+    } catch (error) {
+        res.status(404).json({
+            status: "fail",
+            message: "Cann't get tours statistics"
+        })
+    }
+}
+```
+
+Output : 
+```json
+{
+    "status": "success",
+    "results": 2,
+    "data": {
+        "stats": [
+            {
+                "_id": "EASY",
+                "num": 2,
+                "numOfRatings": 7.699999999999999,
+                "avgRating": 4.45,
+                "avgPrice": 198.5,
+                "minPrice": 0,
+                "maxPrice": 397
+            },
+            {
+                "_id": "DIFFICULT",
+                "num": 2,
+                "numOfRatings": 31.4,
+                "avgRating": 4.6,
+                "avgPrice": 1697,
+                "minPrice": 397,
+                "maxPrice": 2997
+            }
+        ]
+    }
+}
+```
+
+## Aggregation pipeline : unwinding and projecting
+
+- `$unwind` is used to split array values into separate documents contains one value of the array
+- `$project` is used to project property from the document
+- `$addFields`  is used to add fields to each document while aggregating
+
+Business Problem : Write a query which return the number of tours in each month of specific year. e.g. when you write this URL `/monthly-tours/:year` you get the response like this 
+```js
+[
+	{
+		"count": 3,
+		"tours": [
+			"The Sea Explorer",
+			"The Forest Hiker",
+			"The Sports Lover"
+		],
+		"month": 7
+	},
+	{
+		"count": 2,
+		"tours": [
+			"The Star Gazer",
+			"The Forest Hiker"
+		],
+		"month": 10
+	}
+]
+```
+
+**Solution:**
+1. Unwind `startsDate` of tours to separate documents
+2. Match only tours that are in the specific year
+3. Group tours based on the month using `$month` operator of date aggregation
+4. Count them using `$sum` operator
+5. Create array contains names of tours in the month using `$push` operator
+
+**Stages:** 
+- Unwind documents
+```js
+{$unwind : "$startDates"}
+```
+
+- Change format of date (if the format is like this : `2024-01-01T22:24:00`  you don't need to change the format). But if the date looks like this `2024-010-01,22:12:00` you need to format it by adding new field after splitting the string with `,` and accessing the first index in the array
+```js
+{$addFields : {
+	startDatesParsed : {
+		dateString: {$arrayEleAt: [{$split: ["$startDates", ","]}, 0]}
+	}
+}}
+```
+
+- Match tours that in the specific year
+```js
+{ 
+	$match: { 
+		startDateParsed: { 
+			$gte: new Date(`${year}-01-01`), 
+			$lte: new Date(`${year}-12-31`) 
+		} 
+	} 
+}
+```
+
+- Group them based on month
+```js
+{
+	$group: {
+		_id: {$month: "$startDateParsed"},
+		count: {$sum: 1},
+		tours: {$push: "$name"}
+	}
+}
+```
+
+- full example
+```js
+exports.monthlyPlan = async (req, res) => {
+    try {
+        const year = +req.params.year;
+        console.log(year);
+
+        const plan = await Tour.aggregate([
+            {$unwind : "$startDates"},
+            {
+                $addFields: {
+                    startDateParsed: {
+                        $dateFromString: {
+                            dateString: { $arrayElemAt: [{ $split: ["$startDates", ","] }, 0] }
+                        }
+                    }
+                }
+            },
+            { 
+                $match: { 
+                    startDateParsed: { 
+                        $gte: new Date(`${year}-01-01`), 
+                        $lte: new Date(`${year}-12-31`) 
+                    } 
+                } 
+            },
+            {
+                $group: {
+                    _id: {$month: "$startDateParsed"},
+                    count: {$sum: 1},
+                    tours: {$push: "$name"}
+                }
+            },
+            {
+                $addFields : {month: "$_id"}
+            },
+            {
+                $sort : {count: -1, month: -1}
+            },
+            {$project : {_id: 0}}
+        ]);
+
+        res.status(202).json({
+            status: "success",
+            results: plan.length,
+            data : {
+                plan
+            }
+        });
+
+    } catch (error) {
+        res.status(404).json({
+            status: "fail",
+            message: "Cann't get tours monthly plan"
+        })
+    }
+}
+```
+
+Output : 
+```json
+{
+    "status": "success",
+    "results": 9,
+    "data": {
+        "plan": [
+            {
+                "count": 3,
+                "tours": [
+                    "The Sea Explorer",
+                    "The Forest Hiker",
+                    "The Sports Lover"
+                ],
+                "month": 7
+            },
+            {
+                "count": 2,
+                "tours": [
+                    "The Star Gazer",
+                    "The Forest Hiker"
+                ],
+                "month": 10
+            }
+            ......
+```
+
+## Virtual properties 
+
+- Virtual Properties is used to add a new property to the document before saving it in the collection.
+- It is the key feature to separate business logic and application logic
+	- instead of doing this in the controller, you have to do it in the model
+
+```js
+const tourSchema = mongoose.Schema(
+{},
+{
+	toJSON: {virtuals: true},
+	toObject: {virtuals: true}
+}
+);
+
+tourSchema.virtual("durationInWeeks").get(function() {
+	return this.duration / 7;
+})
+```
+
+## Document middleware
+
+- Mongoose has middleware same as Express
+- There are three types of middleware in mongoose 
+	- document
+	- query
+	- aggregation
+- In the document middleware
+	- we can run middleware **before** saving document. before `.save()` / `.create()`
+	- we can run middleware **after** saving the document
+
+```js
+const tourSchema = mongoose.Schema({....});
+
+tourSchema.pre("save", function(next) {
+	console.log("this document will be saved :" , this);
+	next();
+})
+
+tourSchema.post("save", function(doc, next) {
+	console.log("this document has been saved : ", doc);
+	next();
+})
+```
+
+>NOTE: the document middleware doesn't work with `insertMany()` / `insertOne()` / `findByIdAndUpdate()`...
+
+## Query middleware
+
+- Query middleware is executed before or after a certain query executed.
+- To executed the middleware before executing use `pre`.
+- To execute middleware after the query, use `post`
+- the hooks is used to execute the middleware : `find`, `findById`, `findOneAndUpdate`, ...
+
+```js
+tourSchema.pre("find", function(next) {
+    this.find({secretTour : {$ne: "true"}});
+    next();
+})
+```
+
+The previous middleware will be executed before the query is executed. But it only works with `.find()` query.
+
+- If you're using `findOneAndUpdate()` , you've to specify it or use a regular expression.
+```js
+tourSchema.pre(/^find/, function(next) {
+	this.start = Date.now(); // query is a normal document, so you can add porps
+	this.find({ secretTour: {$ne : true} });
+	next();
+})
+```
+
+- Middleware after executing the query
+```js
+tourSchema.post(/^find/, function(docs, next) {
+	console.log(`Retreiving these docs has taken ${Date.now() - this.start}`);
+	console.log(docs)
+	next();
+})
+```
+
+## Aggregation middleware
+
+- Call a middleware before any aggregation using `.pre("aggregate", func)`
+- It is helpful if you need to exclude some documents before aggregation
+- `this` in aggregation stands for the aggregation object ->
+```json
+Aggregate {
+  _pipeline: [
+    { '$match': [Object] },
+    { '$group': [Object] },
+    { '$sort': [Object] }
+  ],
+  _model: Model { Tour },
+  options: {}
+}
+```
+
+- `aggregationObj.pipeline()` : return an array that contains the stages
+- By adding a stage in the front of the array will achieve the approach we need.
+
+```js
+aggregationObj.pipeline().unshift({$match: ....})
+```
+
+The previous code add a stage before the all stages in the aggregation object which is perfect for our approach
+
+- For sure, this is the array returned  from `pipeline()`
+```js
+[
+  { '$match': { ratingAverage: [Object] } },
+  {
+    '$group': {
+      _id: [Object],
+      num: [Object],
+      numOfRatings: [Object],
+      avgRating: [Object],
+      avgPrice: [Object],
+      minPrice: [Object],
+      maxPrice: [Object]
+    }
+  },
+  { '$sort': { avgPrice: 1 } }
+]
+```
+
+- Now, let's go through our business logic and apply it.
+```js
+// AGGREGATION MIDDLEWARE
+tourSchema.pre("aggregate", function(next) {
+    this.pipeline().unshift({$match : {secretTour : {$ne : true}} });
+    console.log(this.pipeline());
+    next();
+})
+```
+
+The previous middleware will make sure that the documents which will be aggregated are not secret tours.
+
+## Data validation : built-in validators
+- `minlength` , `maxlength`
+```js
+name : {
+	type: String,
+	required: [true, "A tour name is a must"],
+	unique: [true, "Tour name is unique and immutable"],
+	maxlength: [40, "Tour name length must be less than 40 characters!"],
+	minlength: [10, "Tour name can't be less than 10 characters!"]
+}
+```
+
+- `min` , `max`
+```js
+ratingAverage: {
+	type: Number,
+	default: 4.5,
+	min: [1.0 , "Rating Average must be above 1.0"],
+	max: [5.0 , "Rating Average must be below 5.0"]
+}
+```
+
+- `enum`
+```js
+difficulty: {
+	type: String,
+	required: [true, "Difficulty is required"],
+	trim: true,
+	enum: {
+		values: ["easy", "midium", "difficult"],
+		message: "Difficulty is either : easy, medium, difficult"
+	}
+}
+```
+
+
+> [!NOTE] Array is a shorthand to sepicify the value and message
+> `[value, message]` : if the value is single(one) value.
+> If the value is array `enum` or anything like this, you've to use the original syntax -> 
+> ```js
+> enum : {
+> 	values: [],
+> 	message: ""
+> }
+> ```
+
+
+> [!NOTE] Make sure that validator is true
+> ```js
+> 	const tour = Tour.findByIdAndUpdate(
+> 	{"_id": id}, 
+> 	{$set : {req.body}},
+> 	{new: true, runValidators: true})
+> ```
+
+## Data validation : custom validators
+
+- Vlidators check if the price discount is less than the regular price or not.
+- Custom validation works only on creating because creating belongs to mongoose but updating belongs to the database and it doesn't create mongoose instance.
+
+```js
+price: {
+        type: Number,
+        required: [true, "A tour price is a must"]
+    },
+    priceDiscount: {
+        type: Number,
+        validate: {
+            // Only works on creating document.
+            // Doesn't work on updating
+            validator: function(val) {
+                return val < this.price; // 100 < 200
+            },
+            message: "Discount ({VALUE}) should be less than the price value"    
+        }
+    }
+    .........
+    .........
+    .........
+    
+```
+
+
+## Extra Notes
+### Order of executing the middleware functions
+1. `pre` of hooks
+2. `post` of hooks
+3. `router.param(id, validateTour)`
+4. last thing run is the handler function in the controller that handles updating tour.
+
+- in `pre` of hook, you have an access to the updated object (the key-values that user submitted to update )
+```js
+const updatedValues = this.getUpdate();
+```
+
+
+
+## How to make custom validation in the middleware of `pre(/^find/)`
+
+- I will explain it later, because I am really tired.
+
+```js
+tourSchema.pre(/^find/, async function(next) {
+    
+    if (this.getOptions && this.getOptions()._isInternal) {
+        // Skip middleware for internal queries
+        return next();
+    }
+
+    const updated = this.getUpdate?.();
+    
+    console.log("pre of find");
+    const docToUpdate = await this.model.findOne(this.getQuery(), {}, { _isInternal: true });
+
+    const updatedPrice = updated["$set"].price || docToUpdate.price;
+    const updatedPriceDiscound = updated["$set"].priceDiscount || docToUpdate.priceDiscount;
+
+    console.log(`updatedPrice = ${updatedPrice}, updatedPriceDiscount = ${updatedPriceDiscound}`);
+
+    if (updatedPriceDiscound > updatedPrice) {
+        next(new Error("Price Discount must be lowwwwwer than the price itself"));
+    }
+    
+    console.log("Query: ", this.getQuery());
+    console.log("Document to Update: ", docToUpdate);
+
+
+    next();
+})
 ```
