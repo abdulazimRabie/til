@@ -21,7 +21,7 @@ DATABASE_PASSWORD=MY_PASSWORD_I_WONT_WRITE_IT_HERE_OF_COURSE
 
 ```js
 const mongoose = require("mongoose");
-const dotenv = require("dotev");
+const dotenv = require("dotenv");
 const app = require("./app.js")
 
 dotenv.config({path: "./config.env"})
@@ -206,7 +206,7 @@ exports.createTour = (req, res) => {
 };
 ```
 
-We can refactor the above code by using `tray/catch` instead of `then/catch`
+We can refactor the above code by using `try/catch` instead of `then/catch`
 
 ```js
 export.createTour = async(req, res) => {
@@ -592,7 +592,7 @@ const deleteData = async () => {
 ## Making API better - filtering
 - Express provides `req.query` which return an object of query params
 - You can use `find` method from mongodb
-- Tou can use `find().where().equal()` chaining from mongoose 
+- You can use `find().where().equal()` chaining from mongoose 
 
 ```js
 const {duration, difficulty} = req.query;
@@ -1000,7 +1000,7 @@ while the grouping process happens (or after. i don't know). it makes some opera
 	- `1` : ascending
 	- `-1` : descending
 ```js
-Tout.aggregate([
+Tour.aggregate([
 	{$match : ratingAverage : {$gte: 4}},
 	{$group: {
 		_id: "difficulty",
@@ -1018,7 +1018,7 @@ Tout.aggregate([
 	- absolutely you can do `$match` again
 
 ```js
-Tout.aggregate([
+	Tour.aggregate([
 	{$match : ratingAverage : {$gte: 4}},
 	{$group: {
 		_id: {$toUpper : "difficulty"},
