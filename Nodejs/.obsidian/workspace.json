@@ -8,20 +8,6 @@
         "type": "tabs",
         "children": [
           {
-            "id": "4321dfc657262b80",
-            "type": "leaf",
-            "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Nodejs/Section 9 - Error Handling/Notes.md",
-                "mode": "source",
-                "source": false
-              },
-              "icon": "lucide-file",
-              "title": "Notes"
-            }
-          },
-          {
             "id": "2cd7f0d726ee9cfa",
             "type": "leaf",
             "state": {
@@ -36,7 +22,21 @@
             }
           },
           {
-            "id": "8ffbc6aa3219e38d",
+            "id": "67144703296977b4",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "Nodejs/Section 8 - Mongoose/Notes.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Notes"
+            }
+          },
+          {
+            "id": "0c7ceda122b43086",
             "type": "leaf",
             "state": {
               "type": "markdown",
@@ -49,7 +49,8 @@
               "title": "Notes"
             }
           }
-        ]
+        ],
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -106,7 +107,7 @@
       }
     ],
     "direction": "horizontal",
-    "width": 338.5
+    "width": 274.5
   },
   "right": {
     "id": "85f329731addce16",
@@ -191,31 +192,31 @@
       "command-palette:Open command palette": false
     }
   },
-  "active": "4321dfc657262b80",
+  "active": "0c7ceda122b43086",
   "lastOpenFiles": [
+    "Nodejs/Section 7 - MongoDB/Notes.md",
     "Nodejs/Section 10 - Authentication - Authorization - Security/Notes.md",
-    "Nodejs/Section 9 - Error Handling/Notes.md",
     "Nodejs/Section 8 - Mongoose/Notes.md",
-    "Untitled",
+    "Nodejs/Section 10 - Authentication - Authorization - Security/assets/security.png",
+    "Nodejs/Section 10 - Authentication - Authorization - Security/assets/Screenshot from 2025-05-01 13-07-02.png",
+    "Nodejs/Section 9 - Error Handling/Notes.md",
+    "Nodejs/Section 10 - Authentication - Authorization - Security/assets/verify_JWT.png",
+    "Nodejs/Section 10 - Authentication - Authorization - Security/assets/what_JWT.png",
+    "Nodejs/Section 10 - Authentication - Authorization - Security/assets/how_JWT.png",
+    "Nodejs/Section 10 - Authentication - Authorization - Security/assets/Screenshot from 2025-02-21 20-42-32.png",
+    "Nodejs/Section 10 - Authentication - Authorization - Security/assets/Screenshot from 2025-02-21 20-42-51.png",
+    "Nodejs/Section 10 - Authentication - Authorization - Security/assets/Screenshot from 2025-02-21 20-43-45.png",
+    "Nodejs/Section 10 - Authentication - Authorization - Security/assets",
     "Nodejs/Section 10 - Authentication - Authorization - Security",
     "Nodejs/Section 9 - Error Handling/assets/overview_of_error_handling.png",
     "Nodejs/Section 9 - Error Handling/assets/Screenshot from 2025-02-07 18-05-49.png",
     "Nodejs/Section 9 - Error Handling/assets",
-    "Nodejs/Section 7 - MongoDB/Notes.md",
     "Nodejs/Section 9 - Error Handling",
     "Nodejs/Section 6 - Express/Notes.md",
-    "Nodejs/Section 8 - Mongoose/assets/application_business_logic.png",
-    "Nodejs/Section 8 - Mongoose/assets/Screenshot from 2024-11-29 04-06-33.png",
-    "Nodejs/Section 8 - Mongoose/assets/mvc.png",
-    "Nodejs/Section 8 - Mongoose/assets/Screenshot from 2024-11-29 04-01-14.png",
     "Nodejs/Section 8 - Mongoose/assets",
     "Nodejs/Section 8 - Mongoose",
-    "Nodejs/Section 7 - MongoDB/assets/Documents_BSON_Embedding.png",
-    "Nodejs/Section 7 - MongoDB/assets/Screenshot from 2024-11-27 16-15-25.png",
     "Nodejs/Section 7 - MongoDB/assets",
     "Nodejs/Section 7 - MongoDB",
-    "Nodejs/Section 6 - Express/assets/request_response_cycle.png",
-    "Nodejs/Section 6 - Express/assets/Screenshot from 2024-11-12 08-27-48.png",
     "Nodejs/Section 6 - Express/assets",
     "Nodejs/Section 2 - Nodejs & NPM/Introduction to Nodejs and NPM.md",
     "Nodejs/Section 5 - Async-Await  - Promises/Notes.md",
