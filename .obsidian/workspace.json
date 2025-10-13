@@ -13,12 +13,12 @@
             "state": {
               "type": "markdown",
               "state": {
-                "file": "JavaScript/JavaScript/Date & Time_Generators_Modules/Data-Generators-Modules.md",
+                "file": "DB Fundamentals/CH 02- ERD.md",
                 "mode": "source",
                 "source": false
               },
               "icon": "lucide-file",
-              "title": "Data-Generators-Modules"
+              "title": "CH 02- ERD"
             }
           }
         ]
@@ -171,6 +171,13 @@
   },
   "active": "6fbb1ef76c188830",
   "lastOpenFiles": [
+    "DB Fundamentals/CH 03- MAPPING.md",
+    "DB Fundamentals/CH 02- ERD.md",
+    "DB Fundamentals/CH 04- SQL.md",
+    "DB Fundamentals/CH 05- DML.md",
+    "DB Fundamentals/CH 06- VIEWS, INDEXES.md",
+    "DB Fundamentals/CH 07- Normalization.md",
+    "JavaScript/JavaScript/Date & Time_Generators_Modules/Data-Generators-Modules.md",
     "Angular/Angular/Day 1/Angular - Project Structure.md",
     "Angular/Angular/Day 1/Angular - Basics.md"
   ]

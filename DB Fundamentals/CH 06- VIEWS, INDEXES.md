@@ -42,7 +42,7 @@ WITH CHECK OPTION
 	- no full table scan again
 - Cons
 	-  slow down all DML operations `insert, update delete`; because the index table must be updated again and sorted
-![](../assets/index.png)
+![](./assets/index.png)
 - Using index is a trade offs 
 - Use it : 
 	- table is large and used for searching more than updating

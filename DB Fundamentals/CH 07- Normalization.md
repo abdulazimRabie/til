@@ -30,7 +30,7 @@ e.g:
 - apply 2nd normal form : 
 	- `enrollment(course_id, student_id, grade)` 
 	- `course(course_id, instructor_id)`
-![](../assets/2nd_normal_form.png)
+![](./assets/2nd_normal_form.png)
 ## 3rd Normal Form
 - obey 2nd normal form
 - **no transitive dependency**
@@ -40,4 +40,4 @@ e.g:
 - solution : apply 3rd normal form
 - `course(course_id, instructor_id)`
 - `instructor(instructor_id, phone)`
-![](../assets/3rd_normal_form.png)
+![](./assets/3rd_normal_form.png)
