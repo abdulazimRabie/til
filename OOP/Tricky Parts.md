@@ -184,7 +184,7 @@ public:
 ### CH_07
 
 ### Inheritance Types
-![](../assets/inheritance_type.png)
+![](./assets/inheritance_type.png)
 - Implement GeoShape Example :
 	- geoshape (public)
 	- triangle (public)
@@ -309,7 +309,7 @@ public:
 ```
 
 ### Multiple Inheritance
-![](../assets/multiple_inheritance.png)
+![](./assets/multiple_inheritance.png)
 - Concept isn't provided in modern languages
 - Problems : 
 	- Two Base classes have same attribute name 
