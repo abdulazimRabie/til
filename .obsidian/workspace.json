@@ -20,8 +20,37 @@
               "icon": "lucide-file",
               "title": "CH 02- ERD"
             }
+          },
+          {
+            "id": "c4d5ef2a47533728",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "OOP/Tricky Parts.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Tricky Parts"
+            }
+          },
+          {
+            "id": "9c4e50f357558c09",
+            "type": "leaf",
+            "state": {
+              "type": "markdown",
+              "state": {
+                "file": "OOP/Tricky Parts.md",
+                "mode": "source",
+                "source": false
+              },
+              "icon": "lucide-file",
+              "title": "Tricky Parts"
+            }
           }
-        ]
+        ],
+        "currentTab": 2
       }
     ],
     "direction": "vertical"
@@ -78,7 +107,8 @@
       }
     ],
     "direction": "horizontal",
-    "width": 300
+    "width": 300,
+    "collapsed": true
   },
   "right": {
     "id": "abe2e77f878ea34c",
@@ -169,10 +199,17 @@
       "bases:Create new base": false
     }
   },
-  "active": "6fbb1ef76c188830",
+  "active": "9c4e50f357558c09",
   "lastOpenFiles": [
-    "DB Fundamentals/CH 03- MAPPING.md",
+    "OOP/assets/multiple_inheritance.png",
+    "OOP/assets/Screenshot from 2025-11-28 16-37-36.png",
+    "OOP/assets/inheritance_type.png",
+    "OOP/assets/Screenshot from 2025-11-28 15-56-35.png",
+    "OOP/assets",
     "DB Fundamentals/CH 02- ERD.md",
+    "OOP/Tricky Parts.md",
+    "OOP",
+    "DB Fundamentals/CH 03- MAPPING.md",
     "DB Fundamentals/CH 04- SQL.md",
     "DB Fundamentals/CH 05- DML.md",
     "DB Fundamentals/CH 06- VIEWS, INDEXES.md",
